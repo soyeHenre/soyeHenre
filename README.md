@@ -1,14 +1,14 @@
-![editdistancelogo](https://user-images.githubusercontent.com/18320004/31609649-04d95c24-b2b0-11e7-96a9-6c8dc3989377.png)
+![Equestrianlogo](https://user-images.githubusercontent.com/18320004/31609649-04d95c24-b2b0-11e7-96a9-6c8dc3989377.png)
 
-[![Platform](https://img.shields.io/cocoapods/p/EditDistance.svg?style=flat)](http://cocoapods.org/pods/EditDistance)
-[![Platform](https://img.shields.io/badge/platform-tvos-lightgrey.svg)](http://cocoapods.org/pods/EditDistance)
+[![Platform](https://img.shields.io/cocoapods/p/Equestrian.svg?style=flat)](http://cocoapods.org/pods/Equestrian)
+[![Platform](https://img.shields.io/badge/platform-tvos-lightgrey.svg)](http://cocoapods.org/pods/Equestrian)
 ![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg)
 ![Swift 3.2](https://img.shields.io/badge/Swift-3.2-orange.svg)
-[![License](https://img.shields.io/cocoapods/l/EditDistance.svg?style=flat)](http://cocoapods.org/pods/EditDistance)
-[![Version](https://img.shields.io/cocoapods/v/EditDistance.svg?style=flat)](http://cocoapods.org/pods/EditDistance)
+[![License](https://img.shields.io/cocoapods/l/Equestrian.svg?style=flat)](http://cocoapods.org/pods/Equestrian)
+[![Version](https://img.shields.io/cocoapods/v/Equestrian.svg?style=flat)](http://cocoapods.org/pods/Equestrian)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-EditDistance is one of the incremental update tool for UITableView and UICollectionView. 
+Equestrian is one of the incremental update tool for UITableView and UICollectionView. 
 
 The followings show how this library update UI. They generate the random items and update their UI incrementally.
 
@@ -16,7 +16,7 @@ The followings show how this library update UI. They generate the random items a
 |---|---|
 | ![tableview](https://cloud.githubusercontent.com/assets/18320004/23104148/adbfb22c-f70b-11e6-80bc-97fb1bac7bbc.gif)  | ![collectionview 1](https://cloud.githubusercontent.com/assets/18320004/23104147/ab1a6d00-f70b-11e6-921b-e328153306fd.gif)  |
 
-# What's this?
+# Equestrian
 This library pipelines the process to update UITableView and UICollectionView. It is so difficult to update them incrementally, because iOS app developers need to manage differences between the two DataSources.
 
 If you update items for DataSource:
@@ -41,7 +41,7 @@ tableView.insertRows(at: [IndexPath(row: 1, section: 0), IndexPath(row: 3, secti
 tableView.endUpdates()
 ```
 
-EditDistance takes on that task:
+Equestrian takes on that task:
 
 ```swift
 // You don't need to write insertion and deletion.
@@ -55,7 +55,7 @@ All you need is to make the updated array.
 You don't have to manage how to update incrementally. That enables to pileline the process.
 
 # How dose it work?
-EditDistance calculates the difference and converts it into an incremental update of UITableView or UICollectionView.
+Equestrian calculates the difference and converts it into an incremental update of UITableView or UICollectionView.
 
 The difference is based on [**Edit Distance Algorithm**](https://en.wikipedia.org/wiki/Edit_distance). There are many ways to calculate it and almost all of them nearly run in linear time.
 
@@ -98,7 +98,7 @@ Calculation in this library is not always reasonable to update UI. I recommend t
 ```
 + add the following line to Cartfile
 ```
-github "kazuhiro4949/EditDistance"
+github "kazuhiro4949/Equestrian"
 ```
 + Create framework
 ```
@@ -113,11 +113,11 @@ github "kazuhiro4949/EditDistance"
 ```
 + Click "+" at Input file and Add the framework path
 ```
-$(SRCROOT)/Carthage/Build/iOS/EditDistance.framework
+$(SRCROOT)/Carthage/Build/iOS/Equestrian.framework
 ```
 + Write Import statement on your source file
 ```
-Import EditDistance
+Import Equestrian
 ```
 
 ### CocoaPods
@@ -137,7 +137,7 @@ platform :ios, '8.0'  # add
 use_framework!  # add
 
 target 'MyAppName' do
-  pod 'EditDistance' # add
+  pod 'Equestrian' # add
 end
 
 target 'MyAppTests' do
@@ -163,15 +163,15 @@ let current = ["Francis", "Woodruff", "Stanton"]
 let next = ["Francis", "Woodruff", "Stanton", "Eduards"]
 ```
 
-#### 2. calling diff from Array makes EditDistanceProxy\<T> instance.
+#### 2. calling diff from Array makes EquestrianProxy\<T> instance.
 
 ```swift
-let proxy = current.diff // => EditDistanceProxy<String>
+let proxy = current.diff // => EquestrianProxy<String>
 ```
 
 #### 3. the instance has compare(to:) to calculate diff with next array.
 ```swift
-let container = proxy.compare(to: next) // => EditDistanceContainer<String>
+let container = proxy.compare(to: next) // => EquestrianContainer<String>
 ```
 
 ### Two dimentional array
@@ -181,15 +181,15 @@ let current = [["Francis", "Woodruff"], ["Stanton"]]
 let next = [["Francis", "Woodruff"], ["Stanton", "Eduard"]]
 ```
 
-#### 2. instantiate EditDistance object
+#### 2. instantiate Equestrian object
 
 ```swift
-let editDistance = EditDistance(from: current, to: next) // => EditDistance<String>
+let Equestrian = Equestrian(from: current, to: next) // => Equestrian<String>
 ```
 
 #### 3. the instance has compare(to:) to calculate diff with next array.
 ```swift
-let container = editDistance.calculate() // => EditDistanceContainer<String>
+let container = Equestrian.calculate() // => EquestrianContainer<String>
 ```
 
 ### customizing algorithm
@@ -201,7 +201,7 @@ let container = current.diff.compare(to: next, with: DynamicAlgorithm())
 #### to closure
 ```swift
 // implement algorithm
-let algorithm = AnyEditDistanceAlgorithm { (from, to) -> EditDistanceContainer<String> in
+let algorithm = AnyEquestrianAlgorithm { (from, to) -> EquestrianContainer<String> in
     //...
     //...
 }
@@ -211,10 +211,10 @@ let container = current.diff.compare(to: next, with: algorithm)
 #### make a new algorithm class.
 ```swift
 //implements protocol
-public struct Wu<T: Equatable>: EditDistanceAlgorithm {
+public struct Wu<T: Equatable>: EquestrianAlgorithm {
     public typealias Element = T
     
-    public func calculate(from: [[T]], to: [[T]]) -> EditDistanceContainer<T> {
+    public func calculate(from: [[T]], to: [[T]]) -> EquestrianContainer<T> {
       //...
       //...
     }
@@ -261,15 +261,15 @@ Wu's algorithm is recommended in this library. The actual speed depends on the n
 - from 10000 items to 12000 items (2000 addition), avg: 0.033 sec
 - from 10000 items to 10000 items (1000 addition and 1000 deletion), avg: 0.055 sec
 
-Test Case is [here](https://github.com/kazuhiro4949/EditDistance/blob/master/EditDistanceTests/WuTests.swift). You can take reexamination with them.
+Test Case is [here](https://github.com/kazuhiro4949/Equestrian/blob/master/EquestrianTests/WuTests.swift). You can take reexamination with them.
 
 # Class Design
 
-![editdistance](https://cloud.githubusercontent.com/assets/18320004/23338894/a77d63d4-fc59-11e6-852b-b1036e215eaf.png)
+![Equestrian](https://cloud.githubusercontent.com/assets/18320004/23338894/a77d63d4-fc59-11e6-852b-b1036e215eaf.png)
 
-- **EditDistance** is a director to calculate **EditDistanceAlgorithm** with two input Array.
-- **AnyEditDistanceAlgorithm** is a type-erased structure to **EditDistanceAlgorithm**.
-- **EditDistanceContainer** is a container to bridge result of algorithm and view's update.
+- **Equestrian** is a director to calculate **EquestrianAlgorithm** with two input Array.
+- **AnyEquestrianAlgorithm** is a type-erased structure to **EquestrianAlgorithm**.
+- **EquestrianContainer** is a container to bridge result of algorithm and view's update.
 - **EditScriptConverter** is a kind of namespace to use some extensions to UIKit classes.
 - **EditScriptConverterProxy** is a proxy for UITableView and UICollectionView. It has method to update the items.
 
